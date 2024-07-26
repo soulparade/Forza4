@@ -20,4 +20,4 @@ GREEN = (0, 255, 0)
 BLUE = (0, 0, 200)
 PLAYER1 = 1
 PLAYER2 = 2
-ws_url = "wss://p53il9l3gk.execute-api.eu-north-1.amazonaws.com/prod/player1" 
+ws_url = "wss://p53il9l3gk.execute-api.eu-north-1.amazonaws.com/prod" 

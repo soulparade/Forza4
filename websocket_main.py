@@ -13,6 +13,18 @@ def connect_to_websocket(ws_url):
         return None
     return ws
 
+def register_player(ws, player_id, player_name):
+    try:
+        if ws and ws.connected:
+            ws.send(json.dumps({"action": "register", "playerId": player_id, "playerName": player_name}))
+        else:
+            print("La connessione non è aperta")
+    except websocket.WebSocketConnectionClosedException as e:
+        print("La connessione è stata interrotta")
+        ws = reconnect(ws)
+        if ws and ws.connected:
+            ws.send(json.dumps({"action": "register", "playerId": player_id, "playerName": player_name}))
+
 def send_message(ws, message):
     try:
         if ws and ws.connected:
