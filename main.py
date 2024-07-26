@@ -105,9 +105,9 @@ screen = pygame.display.set_mode(SIZE)
 draw_board(board)
 pygame.display.update()
 
-ws = connect_to_websocket(ws_url)
+webS = connect_to_websocket(ws_url)
 
-if not ws:
+if not webS:
     print("Impossibile connettersi al WebSocket. Verifica la connessione.")
     sys.exit()
 
@@ -116,7 +116,7 @@ def send_turn(col_selected, player):
         'col_selected': col_selected,
         'player': player
     }
-    send_message(ws, message)
+    send_message(webS, message)
 
 while not WINNER:
     for event in pygame.event.get():
@@ -135,7 +135,7 @@ while not WINNER:
             pygame.display.update()
 
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if (TURN % 2 == 0 and ws.url.endswith('player1')) or (TURN % 2 != 0 and ws.url.endswith('player2')):
+            if (TURN % 2 == 0 and webS.url.endswith('player1')) or (TURN % 2 != 0 and webS.url.endswith('player2')):
                 pos_x = event.pos[0]
                 col_selected = int(math.floor(pos_x / SQUARE_SIZE))
 
@@ -146,7 +146,7 @@ while not WINNER:
     
     # Check for messages from WebSocket
     try:
-        message = ws.recv()
+        message = webS.recv()
         if message:
             handle_message(message)
     except websocket.WebSocketTimeoutException:
